@@ -9,9 +9,8 @@ WORKDIR /usr/app
 # where available (npm@5+)
 COPY package*.json ./
 
+RUN npm install -g typescript
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
 # Bundle app source
 COPY . .
@@ -19,10 +18,8 @@ COPY . .
 # Expose application port
 EXPOSE 5000
 
-# Build typescript app into /dist
 RUN npm run build
+RUN npm prune --production
 
 # Start the application server
 CMD [ "node", "dist/server.js"]
-
-# End of File
