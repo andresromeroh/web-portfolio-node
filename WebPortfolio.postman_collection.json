@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "93524982-7399-44be-b6c8-ed7c006265ff",
+		"name": "WebPortfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GITHUB USER",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.github.v3+json",
+						"description": "By default, all requests to https://api.github.com receive the v3 version of the REST API.",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "token 4960ee26f77ddeba995301fbb159ba7ca5c0e3e7",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.github.com/user",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GITHUB REPOSITORIES",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.github.v3+json",
+						"description": "By default, all requests to https://api.github.com receive the v3 version of the REST API.",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "token 4960ee26f77ddeba995301fbb159ba7ca5c0e3e7",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.github.com/users/ANDRESROMEROH/repos",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"ANDRESROMEROH",
+						"repos"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
