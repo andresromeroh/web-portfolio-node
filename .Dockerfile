@@ -1,4 +1,8 @@
+<<<<<<< HEAD:Dockerfile
+#Pull the latest Node image
+=======
 #Pull the latest NodeJS image
+>>>>>>> 994d74533de61277945b03b72f18ebdeadeefd29:.Dockerfile
 FROM node:latest
 
 # Create app directory
