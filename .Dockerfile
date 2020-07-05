@@ -1,4 +1,4 @@
-#Grab the latest NodeJS image
+#Pull the latest NodeJS image
 FROM node:latest
 
 # Create app directory
