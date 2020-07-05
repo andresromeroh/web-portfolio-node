@@ -1,27 +1,26 @@
 import express from 'express';
-import { Application, json } from 'express';
+import { Application, Request, Response } from 'express';
 import figlet from 'figlet';
 import chalk from 'chalk';
 
 class App {
     public app: Application;
     public port: Number;
-    public parser: any;
 
     constructor(options: { port: Number, middleWares: Array<any>, controllers: Array<any> }) {
         this.app = express();
         this.port = options.port;
-        this.parser = json;
 
         this.middlewares(options.middleWares);
         this.routes(options.controllers);
 
+        this.health();
         this.assets();
         this.template();
     }
 
     private middlewares(middleWares: Array<any>) {
-        this.app.use(this.parser); // equals to bodyParser.json()
+        this.app.use(express.json()); // equals to bodyParser.json()
         middleWares.forEach(middleWare => {
             this.app.use(middleWare);
         });
@@ -29,7 +28,13 @@ class App {
 
     private routes(controllers: Array<any>) {
         controllers.forEach(controller => {
-            this.app.use('/', controller.router)
+            this.app.use('/api/v1', controller.router);
+        });
+    }
+
+    private health() {
+        this.app.get('/api/v1/health', (req: Request, res: Response) => {
+            return res.json({ status: 'UP' });
         });
     }
 
@@ -44,7 +49,7 @@ class App {
 
     public listen() {
         figlet('Express JS v4.17.1', (err, data) => console.log(chalk.greenBright(data)));
-        this.app.listen(this.port, () => {
+        this.app.listen(this.port, async () => {
             console.log(chalk.blueBright(`App listening on the http://localhost:${this.port}`));
         })
     }
