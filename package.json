@@ -4,7 +4,7 @@
   "description": "The services for my web portfolio. Written with Node/Typescript.",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start:prod": "node dist/server.js",
     "start:dev": "npm run build && nodemon src/server.ts",
     "build": "tsc"
   },
