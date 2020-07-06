@@ -4,8 +4,8 @@
   "description": "The services for my web portfolio. Written with Node/Typescript.",
   "main": "index.js",
   "scripts": {
-    "start:prod": "node dist/server.js",
-    "start:dev": "npm run build && nodemon src/server.ts",
+    "prod": "node dist/server.js",
+    "dev": "npm run build && nodemon src/server.ts",
     "build": "tsc"
   },
   "repository": {
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/ANDRESROMEROH/web-portfolio-backend.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "ANDRESROMEROH",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ANDRESROMEROH/web-portfolio-backend/issues"

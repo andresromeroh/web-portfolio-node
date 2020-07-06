@@ -50,7 +50,7 @@ class App {
     public listen() {
         figlet('Express JS v4.17.1', (err, data) => console.log(chalk.greenBright(data)));
         this.app.listen(this.port, async () => {
-            console.log(chalk.blueBright(`App listening on the http://localhost:${this.port}`));
+            console.log(chalk.blueBright(`App listening on http://localhost:${this.port}`));
         })
     }
 }

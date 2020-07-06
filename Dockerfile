@@ -10,7 +10,8 @@ WORKDIR /usr/app
 COPY package*.json ./
 
 RUN npm install -g typescript
-RUN npm install
+RUN npm install -g ts-node
+RUN npm install silent --only=production
 
 # Bundle app source
 COPY . .
@@ -18,8 +19,5 @@ COPY . .
 # Expose application port
 EXPOSE 5000
 
-RUN npm run build
-RUN npm prune --production
-
 # Start the application server
-CMD [ "node", "dist/server.js"]
+CMD [ "ts-node", "src/server.ts"]
