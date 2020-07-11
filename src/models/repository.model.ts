@@ -1,24 +1,39 @@
+/* eslint-disable camelcase */
+import { v4 as uuidv4 } from 'uuid';
 import { IBaseModel } from './IBaseModel.interface';
 
 class Repository implements IBaseModel {
-    id: number;
+    id: string;
+
+    githubId: number;
+
     name: string;
+
     fullName: string;
+
     private: boolean;
+
     htmlUrl: string;
+
     language: string;
+
     stars: number;
+
     forks: number;
+
     watchers: number;
+
     createdAt: Date;
+
     updatedAt: Date;
 
     constructor(repository: {
         id: number, name: string, full_name: string, private: boolean,
-        html_url: string, language: string, stargazers_count: number, 
+        html_url: string, language: string, stargazers_count: number,
         forks_count: number, watchers_count: number, created_at: Date, updated_at: Date
     }) {
-        this.id = repository.id;
+        this.id = uuidv4();
+        this.githubId = repository.id;
         this.name = repository.name;
         this.fullName = repository.full_name;
         this.private = repository.private;

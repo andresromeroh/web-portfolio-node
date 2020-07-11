@@ -15,5 +15,20 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": "off",
+        "no-unused-vars": "off",
+        "import/no-unresolved": "off",
+        "no-console": "off",
+        "import/extensions": "off",
+        "no-return-assign": "off",
+        "no-underscore-dangle": "off",
+        "max-len": [
+            "error",
+            120
+        ]
     }
 }

@@ -1,10 +1,11 @@
-import express from 'express';
-import { Application, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
+
 import figlet from 'figlet';
 import chalk from 'chalk';
 
 class App {
     public app: Application;
+
     public port: Number;
 
     constructor(options: { port: Number, middleWares: Array<any>, controllers: Array<any> }) {
@@ -21,21 +22,19 @@ class App {
 
     private middlewares(middleWares: Array<any>) {
         this.app.use(express.json()); // equals to bodyParser.json()
-        middleWares.forEach(middleWare => {
+        middleWares.forEach((middleWare) => {
             this.app.use(middleWare);
         });
     }
 
     private routes(controllers: Array<any>) {
-        controllers.forEach(controller => {
+        controllers.forEach((controller) => {
             this.app.use('/api/v1', controller.router);
         });
     }
 
     private health() {
-        this.app.get('/api/v1/health', (req: Request, res: Response) => {
-            return res.json({ status: 'UP' });
-        });
+        this.app.get('/api/v1/health', (req: Request, res: Response) => res.json({ status: 'UP' }));
     }
 
     private assets() {
@@ -51,7 +50,7 @@ class App {
         figlet('Express JS v4.17.1', (err, data) => console.log(chalk.greenBright(data)));
         this.app.listen(this.port, async () => {
             console.log(chalk.blueBright(`App listening on http://localhost:${this.port}`));
-        })
+        });
     }
 }
 
