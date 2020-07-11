@@ -2,7 +2,9 @@ import BaseService from "./Base.service";
 import fetch from 'node-fetch';
 import { Response } from 'node-fetch';
 import Repository from '../models/repository.model'
+import { config } from 'dotenv';
 
+config();
 const TOKEN = process.env.GITHUB_ACCESS_TOKEN;
 
 class RepositoryService extends BaseService {
