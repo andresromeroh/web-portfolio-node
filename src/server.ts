@@ -1,12 +1,15 @@
 import App from './app';
 
+import loggerMiddleware from './middleware/logger';
+import RepositoryController from './controllers/repository.controller';
+
 const app = new App({
     port: 5000,
     controllers: [
-        // TODO: Add application controllers
+        new RepositoryController()
     ],
     middleWares: [
-        // TODO: Add application middlewares
+        loggerMiddleware
     ]
 })
 

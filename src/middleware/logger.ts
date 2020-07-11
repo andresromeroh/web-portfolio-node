@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import logger from '../utils/logger';
 
 const loggerMiddleware = (req: Request, resp: Response, next) => {
-    logger.info(`Request: ${req.method} ${req.path}, Body: ${req.body || null}`);
+    logger.trace(`Request: ${req.method} ${req.path}, Body: ${JSON.stringify(req.body, null, 4)}`);
     next();
 }
 

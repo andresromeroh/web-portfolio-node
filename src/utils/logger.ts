@@ -17,7 +17,7 @@ class Logger
 
     public debug(str: String) {
         this.log.level = "debug";
-        this.log.info(str);
+        this.log.debug(str);
     }
 
     public info(str: String) {
@@ -27,17 +27,17 @@ class Logger
 
     public trace(str: String) {
         this.log.level = "trace";
-        this.log.info(str);
+        this.log.trace(str);
     }
     
     public error(str: String) {
         this.log.level = "error";
-        this.log.info(str);
+        this.log.error(str);
     }
 
     public warn(str: String) {
         this.log.level = "warn";
-        this.log.info(str);
+        this.warn(str);
     }
 }
 

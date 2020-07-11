@@ -7,12 +7,16 @@ class Repository implements IBaseModel {
     private: boolean;
     htmlUrl: string;
     language: string;
+    stars: number;
+    forks: number;
+    watchers: number;
     createdAt: Date;
     updatedAt: Date;
 
     constructor(repository: {
         id: number, name: string, full_name: string, private: boolean,
-        html_url: string, language: string, created_at: Date, updated_at: Date
+        html_url: string, language: string, stargazers_count: number, 
+        forks_count: number, watchers_count: number, created_at: Date, updated_at: Date
     }) {
         this.id = repository.id;
         this.name = repository.name;
@@ -20,6 +24,9 @@ class Repository implements IBaseModel {
         this.private = repository.private;
         this.htmlUrl = repository.html_url;
         this.language = repository.language;
+        this.stars = repository.stargazers_count;
+        this.forks = repository.forks_count;
+        this.watchers = repository.watchers_count;
         this.createdAt = repository.created_at;
         this.updatedAt = repository.updated_at;
     }
