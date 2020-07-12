@@ -4,6 +4,7 @@ import HttpStatus from 'http-status-codes';
 import IControllerBase from './IControllerBase.interface';
 import Repository from '../models/repository.model';
 import RepositoryService from '../services/repository.service';
+import cache from '../utils/cache';
 
 class RepositoryController implements IControllerBase {
     public path: string = '/repositories';
@@ -25,18 +26,24 @@ class RepositoryController implements IControllerBase {
     getPublicRepos = async (req: Request, res: Response) => {
         try {
             const privateRepos: Array<Repository> = await this.service.getPublicRepositories();
+            cache.set(req.originalUrl, privateRepos); // set redis cache
             return res.status(HttpStatus.OK).json(privateRepos);
         } catch (error) {
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
+            return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: error.message,
+            });
         }
     }
 
     getTrendingRepos = async (req: Request, res: Response) => {
         try {
             const trendingRepos: Array<Repository> = await this.service.getTrendingRepositories();
+            cache.set(req.originalUrl, trendingRepos); // set redis cache
             return res.status(HttpStatus.OK).json(trendingRepos);
         } catch (error) {
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
+            return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: error.message,
+            });
         }
     }
 }

@@ -23,7 +23,8 @@ class EmailController implements IControllerBase {
 
     sendEmail = async (req: Request, res: Response) => {
         try {
-            const { body: email } = req;
+            const { body } = req;
+            const email = new Email(body);
 
             if (!email || email instanceof Email) {
                 const emailResponse = await this.service.sendEmail(email);
@@ -31,7 +32,9 @@ class EmailController implements IControllerBase {
             }
             return res.status(HttpStatus.BAD_REQUEST).end();
         } catch (error) {
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).end();
+            return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: error.message,
+            });
         }
     }
 }

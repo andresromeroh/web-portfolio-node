@@ -12,15 +12,15 @@ class Email implements IBaseModel {
 
     text: string;
 
-    html: string;
+    // html?: string;
 
-    constructor(email: { to: string, from: string, subject: string, text: string, html: string }) {
+    constructor(email: { to: string, from: string, subject: string, text: string }) {
         this.id = uuidv4();
         this.to = email.to;
         this.from = email.from;
         this.subject = email.subject;
         this.text = email.text;
-        this.html = email.html;
+        // this.html = email.html;
     }
 
     toString(): void {

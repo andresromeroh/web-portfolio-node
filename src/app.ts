@@ -12,6 +12,8 @@ class App {
         this.app = express();
         this.port = options.port;
 
+        this.app.set('trust proxy', true);
+        this.app.set('strict routing', true);
         this.middlewares(options.middleWares);
         this.routes(options.controllers);
 
