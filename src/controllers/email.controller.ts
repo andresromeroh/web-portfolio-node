@@ -6,7 +6,7 @@ import Email from '../models/email.model';
 import EmailService from '../services/email.service';
 
 class EmailController implements IControllerBase {
-    public path: string = '/email';
+    public path: string = '/emails';
 
     public router: Router = express.Router();
 
@@ -18,7 +18,7 @@ class EmailController implements IControllerBase {
     }
 
     public initRoutes() {
-        this.router.post('/email/send', this.sendEmail);
+        this.router.post('/emails/send', this.sendEmail);
     }
 
     sendEmail = async (req: Request, res: Response) => {
