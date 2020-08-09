@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import App from './app';
 
 import rateLimitMiddleware from './middleware/rateLimit';
@@ -6,8 +7,10 @@ import RepositoryController from './controllers/repository.controller';
 import EmailController from './controllers/email.controller';
 import cacheMiddleware from './middleware/cache';
 
+config();
+
 const app = new App({
-    port: 5000,
+    port: Number(process.env.PORT),
     controllers: [
         new RepositoryController(),
         new EmailController(),
