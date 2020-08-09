@@ -37,12 +37,11 @@ class App {
     }
 
     private home() {
-        this.app.get('/api/v1/health', (req: Request, res: Response) => res.json({
+        this.app.get('/', (req: Request, res: Response) => res.json({
             name: 'andresromero-dev',
             base: '/api/v1',
             endpoints: [
                 '/repositories',
-                '/emails',
                 '/linkedin',
             ],
         }));
