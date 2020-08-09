@@ -2,7 +2,7 @@ import { RedisClient } from 'redis';
 import { config } from 'dotenv';
 
 config();
-const { REDIS_URL } = process.env;
+const REDIS: string = process.env.REDIS_HOST || process.env.REDIS_URL;
 
 class Cache {
     private static _instance: Cache;
@@ -11,7 +11,7 @@ class Cache {
 
     private constructor() {
         this.client = new RedisClient({
-            host: REDIS_URL,
+            host: REDIS,
         });
     }
 
