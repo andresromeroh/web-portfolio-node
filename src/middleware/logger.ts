@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import logger from '../utils/logger';
 
-const loggerMiddleware = (req: Request, resp: Response, next) => {
-    logger.info(`Request: ${req.method} ${req.path}, Body: ${req.body || null}`);
+const loggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    logger.trace(`Request: ${req.method} ${req.path}, Body: ${JSON.stringify(req.body, null, 4)}`);
     next();
-}
+};
 
 export default loggerMiddleware;

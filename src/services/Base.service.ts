@@ -5,9 +5,10 @@ config();
 
 class BaseService {
     protected url: string;
+
     protected headers: Headers = new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
     });
 
     constructor(url: string) {
