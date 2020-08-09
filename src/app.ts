@@ -17,6 +17,7 @@ class App {
         this.middlewares(options.middleWares);
         this.routes(options.controllers);
 
+        this.home();
         this.health();
         this.assets();
         this.template();
@@ -35,6 +36,18 @@ class App {
         });
     }
 
+    private home() {
+        this.app.get('/api/v1/health', (req: Request, res: Response) => res.json({
+            name: 'andresromero-dev',
+            base: '/api/v1',
+            endpoints: [
+                '/repositories',
+                '/emails',
+                '/linkedin',
+            ],
+        }));
+    }
+
     private health() {
         this.app.get('/api/v1/health', (req: Request, res: Response) => res.json({ status: 'UP' }));
     }
@@ -49,9 +62,11 @@ class App {
     }
 
     public listen() {
-        figlet('Express JS v4.17.1', (err, data) => console.log(chalk.greenBright(data)));
         this.app.listen(this.port, async () => {
-            console.log(chalk.blueBright(`App listening on http://localhost:${this.port}`));
+            figlet('Express JS v4.17.1', (err, data) => {
+                console.log(chalk.greenBright(data));
+                console.log(chalk.blueBright(`App listening on http://localhost:${this.port}`));
+            });
         });
     }
 }
