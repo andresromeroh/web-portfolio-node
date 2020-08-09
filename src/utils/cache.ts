@@ -1,4 +1,8 @@
 import { RedisClient } from 'redis';
+import { config } from 'dotenv';
+
+config();
+const { REDIS_URL } = process.env;
 
 class Cache {
     private static _instance: Cache;
@@ -7,8 +11,7 @@ class Cache {
 
     private constructor() {
         this.client = new RedisClient({
-            host: '192.168.1.205',
-            port: 6379,
+            host: REDIS_URL,
         });
     }
 

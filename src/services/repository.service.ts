@@ -1,5 +1,4 @@
 import fetch, { Response } from 'node-fetch';
-
 import { config } from 'dotenv';
 import Repository from '../models/repository.model';
 import BaseService from './Base.service';
