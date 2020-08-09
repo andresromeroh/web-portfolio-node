@@ -2,6 +2,7 @@ import { RedisClient } from 'redis';
 import { config } from 'dotenv';
 
 config();
+const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
 
 class Cache {
     private static _instance: Cache;
@@ -9,15 +10,11 @@ class Cache {
     private client: RedisClient;
 
     private constructor() {
-        if (process.env.REDIS_HOST) { // running locally
-            this.client = new RedisClient({
-                host: process.env.REDIS_HOST,
-            });
-        } else {
-            this.client = new RedisClient({
-                url: process.env.REDIS_URL,
-            });
-        }
+        this.client = new RedisClient({
+            host: REDIS_HOST,
+            port: Number(REDIS_PORT),
+            password: REDIS_PASSWORD,
+        });
     }
 
     public static get Instance() {
