@@ -4,7 +4,7 @@ import HttpStatus from 'http-status-codes';
 import IControllerBase from './IControllerBase.interface';
 import BadgeService from '../services/badge.service';
 import Badge from '../models/badge.model';
-import cache from '../utils/cache';
+// import cache from '../utils/cache';
 
 class EmailController implements IControllerBase {
     public path: string = '/badges';
@@ -25,7 +25,7 @@ class EmailController implements IControllerBase {
     getAllBadges = async (req: Request, res: Response) => {
         try {
             const badges: Array<Badge> = await this.service.getAllBadges();
-            cache.set(req.originalUrl, badges); // set redis cache
+            // cache.set(req.originalUrl, badges); // set redis cache
             return res.status(HttpStatus.OK).json(badges);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({

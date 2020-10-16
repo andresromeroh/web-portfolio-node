@@ -1,4 +1,5 @@
 import { config } from 'dotenv';
+import cors from 'cors';
 import App from './app';
 
 import rateLimitMiddleware from './middleware/rateLimit';
@@ -6,7 +7,7 @@ import loggerMiddleware from './middleware/logger';
 import RepositoryController from './controllers/repository.controller';
 import EmailController from './controllers/email.controller';
 import BadgeController from './controllers/badge.controller';
-import cacheMiddleware from './middleware/cache';
+// import cacheMiddleware from './middleware/cache';
 
 config();
 
@@ -18,8 +19,9 @@ const app = new App({
         new BadgeController(),
     ],
     middleWares: [
+        cors(),
         rateLimitMiddleware,
-        cacheMiddleware,
+        // cacheMiddleware,
         loggerMiddleware,
     ],
 });
