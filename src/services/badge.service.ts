@@ -10,7 +10,7 @@ const BADGE_URL: string = process.env.ACCLAIM_BADGE_URL;
 const BADGE_ELEMENT: string = '.cr-public-earned-badge-grid-item';
 
 class BadgeService {
-    protected $: CheerioStatic;
+    protected $: any;
 
     constructor() {
         this.$ = null;
@@ -23,7 +23,7 @@ class BadgeService {
 
         this.$ = cheerio.load(html);
 
-        this.$(BADGE_ELEMENT).each((i, badge) => {
+        this.$(BADGE_ELEMENT).each((i: any, badge: any) => {
             const { title, href } = badge.attribs;
             const id = href.split('/')[2];
             const image = this.$(badge).find('div img').attr('src');
