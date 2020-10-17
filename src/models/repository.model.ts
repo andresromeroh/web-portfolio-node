@@ -11,6 +11,8 @@ class Repository implements IBaseModel {
 
     fullName: string;
 
+    description: string;
+
     private: boolean;
 
     htmlUrl: string;
@@ -28,7 +30,7 @@ class Repository implements IBaseModel {
     updatedAt: Date;
 
     constructor(repository: {
-        id: number, name: string, full_name: string, private: boolean,
+        id: number, name: string, full_name: string, description: string, private: boolean,
         html_url: string, language: string, stargazers_count: number,
         forks_count: number, watchers_count: number, created_at: Date, updated_at: Date
     }) {
@@ -36,6 +38,7 @@ class Repository implements IBaseModel {
         this.githubId = repository.id;
         this.name = repository.name;
         this.fullName = repository.full_name;
+        this.description = repository.description;
         this.private = repository.private;
         this.htmlUrl = repository.html_url;
         this.language = repository.language;
