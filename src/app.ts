@@ -62,7 +62,7 @@ class App {
 
     public listen() {
         this.app.listen(this.port, async () => {
-            figlet('Express JS v4.17.1', (err, data) => {
+            figlet('Express JS', (err, data) => {
                 console.log(chalk.greenBright(data));
                 console.log(chalk.blueBright(`App listening on http://localhost:${this.port}`));
             });
