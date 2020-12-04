@@ -37,6 +37,7 @@ class BadgeService {
             });
         });
 
+        // return badges.sort((a, b) => ((a.title > b.title) ? 0 : -1));
         return badges;
     }
 }
