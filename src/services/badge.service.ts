@@ -29,15 +29,17 @@ class BadgeService {
             const image = this.$(badge).find('div img').attr('src');
             const information = `${BADGE_URL}/${id}`;
 
-            badges.push({
-                id,
-                title,
-                image,
-                information,
-            });
+            // Removes expired cert, need to look for a way to filter this
+            if (!title.includes('Cisco')) {
+                badges.push({
+                    id,
+                    title,
+                    image,
+                    information,
+                });
+            }
         });
 
-        // return badges.sort((a, b) => ((a.title > b.title) ? 0 : -1));
         return badges;
     }
 }

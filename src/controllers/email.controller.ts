@@ -4,6 +4,7 @@ import HttpStatus from 'http-status-codes';
 import IControllerBase from './IControllerBase.interface';
 import Email from '../models/email.model';
 import EmailService from '../services/email.service';
+import { RECEIVER_NAME } from '../config/constants';
 
 class EmailController implements IControllerBase {
     public path: string = '/email';
@@ -23,8 +24,27 @@ class EmailController implements IControllerBase {
 
     sendEmail = async (req: Request, res: Response) => {
         try {
-            const { body } = req;
-            const email = new Email(body);
+            const sender = process.env.SENDGRID_SENDER_ADDRESS;
+            const receiver = process.env.SENDGRID_RECEIVER_ADDRESS;
+            const template = process.env.SENDGRID_TEMPLATE_ID;
+
+            const { subject, from, text } = req.body;
+
+            const emailFields = {
+                subject,
+                from: {
+                    name: from,
+                    email: sender,
+                },
+                to: {
+                    name: RECEIVER_NAME,
+                    email: receiver,
+                },
+                templateId: template,
+                dynamicTemplateData: { subject, text },
+            };
+
+            const email = new Email(emailFields);
 
             if (!email || email instanceof Email) {
                 const emailResponse = await this.service.sendEmail(email);
