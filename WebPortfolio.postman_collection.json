@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "93524982-7399-44be-b6c8-ed7c006265ff",
-		"name": "WebPortfolio",
+		"name": "Web-Portfolio-Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -66,6 +66,38 @@
 						"users",
 						"ANDRESROMEROH",
 						"repos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SENDGRID SEND EMAIL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"from\": \"andresromeroh.cr@gmail.com\",\r\n    \"to\": \"andresromeroh.cr@gmail.com\",\r\n    \"subject\": \"Email for Testing\",\r\n    \"text\": \"This email is for testing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://andresromero-dev.herokuapp.com/api/v1/email/send",
+					"protocol": "https",
+					"host": [
+						"andresromero-dev",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"email",
+						"send"
 					]
 				}
 			},
