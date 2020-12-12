@@ -42,7 +42,7 @@ class App {
             base: '/api/v1',
             endpoints: [
                 '/repositories',
-                '/linkedin',
+                '/badges',
             ],
         }));
     }

@@ -26,17 +26,22 @@ class EmailController implements IControllerBase {
         try {
             const sender = process.env.SENDGRID_SENDER_ADDRESS;
             const receiver = process.env.SENDGRID_RECEIVER_ADDRESS;
+            const template = process.env.SENDGRID_TEMPLATE_ID;
+
+            const { subject, from, text } = req.body;
 
             const emailFields = {
-                ...req.body,
+                subject,
                 from: {
-                    name: req.body.from,
+                    name: from,
                     email: sender,
                 },
                 to: {
                     name: RECEIVER_NAME,
                     email: receiver,
                 },
+                templateId: template,
+                dynamicTemplateData: { subject, text },
             };
 
             const email = new Email(emailFields);

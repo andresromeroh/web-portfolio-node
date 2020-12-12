@@ -11,17 +11,23 @@ class Email implements IBaseModel {
 
     subject: string;
 
-    text: string;
+    templateId: string;
 
-    // html?: string;
+    dynamicTemplateData?: { [key: string]: any };
 
-    constructor(email: { to: EmailData, from: EmailData, subject: string, text: string }) {
+    constructor(email: {
+        to: EmailData,
+        from: EmailData,
+        subject: string,
+        templateId: string,
+        dynamicTemplateData: {}
+    }) {
         this.id = uuidv4();
         this.to = email.to;
         this.from = email.from;
         this.subject = email.subject;
-        this.text = email.text;
-        // this.html = email.html;
+        this.templateId = email.templateId;
+        this.dynamicTemplateData = email.dynamicTemplateData;
     }
 
     toString(): void {
