@@ -4,6 +4,7 @@ import App from './app';
 
 import rateLimitMiddleware from './middleware/rateLimit';
 import loggerMiddleware from './middleware/logger';
+import cacheMiddleware from './middleware/cache';
 import RepositoryController from './controllers/repository.controller';
 import EmailController from './controllers/email.controller';
 import BadgeController from './controllers/badge.controller';
@@ -21,6 +22,7 @@ const app = new App({
         cors(),
         rateLimitMiddleware,
         loggerMiddleware,
+        cacheMiddleware,
     ],
 });
 

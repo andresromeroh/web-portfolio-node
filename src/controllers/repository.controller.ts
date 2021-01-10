@@ -26,7 +26,10 @@ class RepositoryController implements IBaseController {
     getPublicRepos = async (req: Request, res: Response) => {
         try {
             const publicRepos: Array<Repository> = await this.service.getPublicRepositories();
-            return res.status(HttpStatus.OK).json(publicRepos);
+            return res
+                .status(HttpStatus.OK)
+                .json(publicRepos)
+                .locals.cache(publicRepos);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
                 error: error.message,
@@ -37,7 +40,10 @@ class RepositoryController implements IBaseController {
     getTrendingRepos = async (req: Request, res: Response) => {
         try {
             const trendingRepos: Array<Repository> = await this.service.getTrendingRepositories();
-            return res.status(HttpStatus.OK).json(trendingRepos);
+            return res
+                .status(HttpStatus.OK)
+                .json(trendingRepos)
+                .locals.cache(trendingRepos);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
                 error: error.message,
@@ -54,7 +60,10 @@ class RepositoryController implements IBaseController {
                 visibility: Visibility.Public,
             };
             const publicRepos: Array<Repository> = await this.service.searchPublicRepositories(searchReq);
-            return res.status(HttpStatus.OK).json(publicRepos);
+            return res
+                .status(HttpStatus.OK)
+                .json(publicRepos)
+                .locals.cache(publicRepos);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
                 error: error.message,

@@ -29,8 +29,9 @@
         "no-console": "off",
         "import/extensions": "off",
         "no-return-assign": "off",
+        "camelcase": "off",
         "no-underscore-dangle": "off",
         "operator-linebreak": "off",
-        "no-extra-semi": "off",
+        "no-extra-semi": "off"
     }
 }
