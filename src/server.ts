@@ -7,7 +7,6 @@ import loggerMiddleware from './middleware/logger';
 import RepositoryController from './controllers/repository.controller';
 import EmailController from './controllers/email.controller';
 import BadgeController from './controllers/badge.controller';
-// import cacheMiddleware from './middleware/cache';
 
 config();
 
@@ -21,7 +20,6 @@ const app = new App({
     middleWares: [
         cors(),
         rateLimitMiddleware,
-        // cacheMiddleware,
         loggerMiddleware,
     ],
 });

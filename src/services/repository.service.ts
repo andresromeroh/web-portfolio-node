@@ -1,15 +1,22 @@
 import fetch, { Response } from 'node-fetch';
-import { config } from 'dotenv';
 import Repository from '../models/repository.model';
 import BaseService from './Base.service';
 
-config();
-
 const TOKEN: string = process.env.GITHUB_ACCESS_TOKEN;
-const PUBLIC_VISIBILITY = 'public';
-const PRIVATE_VISIBILITY = 'private';
 
-class RepositoryService extends BaseService {
+export enum Visibility {
+    Public = 'public',
+    Private = 'private',
+}
+
+export interface IRepositorySearchRequest {
+    text: string;
+    page: number;
+    pageSize: Number;
+    visibility: Visibility;
+}
+
+export class RepositoryService extends BaseService {
     constructor() {
         super('GITHUB_API_URL');
         this.addHeader('Authorization', `token ${TOKEN}`);
@@ -29,7 +36,7 @@ class RepositoryService extends BaseService {
 
     public async getPublicRepositories(): Promise<Array<Repository>> {
         let githubRepositories: Array<Repository> = null;
-        const query = this.getUrlQueryStringByVisibility(PUBLIC_VISIBILITY);
+        const query = this.getQueryStringByVisibility(Visibility.Public);
         const response: Response = await fetch(query, { headers: this.headers });
 
         if (response) {
@@ -42,7 +49,7 @@ class RepositoryService extends BaseService {
 
     public async getPrivateRepositories(): Promise<Array<Repository>> {
         let githubRepositories: Array<Repository> = null;
-        const query = this.getUrlQueryStringByVisibility(PRIVATE_VISIBILITY);
+        const query = this.getQueryStringByVisibility(Visibility.Private);
         const response: Response = await fetch(query, { headers: this.headers });
 
         if (response) {
@@ -53,9 +60,9 @@ class RepositoryService extends BaseService {
         return githubRepositories;
     }
 
-    public async getTrendingRepositories(): Promise<Array<Repository>> { // Simple as I have no popular repos :(
+    public async getTrendingRepositories(): Promise<Array<Repository>> {
         let githubRepositories: Array<Repository> = null;
-        const query = this.getUrlQueryStringByVisibility(PUBLIC_VISIBILITY);
+        const query = this.getQueryStringByVisibility(Visibility.Public);
         const response: Response = await fetch(query, { headers: this.headers });
 
         if (response) {
@@ -66,11 +73,42 @@ class RepositoryService extends BaseService {
         return githubRepositories?.filter((r) => r.stars > 0 || r.forks > 0 || r.watchers > 0);
     }
 
-    private getUrlQueryStringByVisibility(visibility: string) {
+    public async searchPublicRepositories(searchReq: IRepositorySearchRequest): Promise<Array<Repository>> {
+        let githubRepositories: Array<Repository> = null;
+        const {
+            text, page, pageSize, visibility,
+        } = searchReq;
+
+        const query = this.getPaginationQueryString(page, pageSize, visibility);
+        const response: Response = await fetch(query, { headers: this.headers });
+
+        if (response) {
+            const json = await response.json();
+            githubRepositories = json.map((repo: any) => new Repository(repo));
+        }
+
+        if (githubRepositories && githubRepositories.length) {
+            return githubRepositories.filter((r) => {
+                const txtLowerCase = text.toLowerCase();
+                return r.name.toLowerCase().includes(txtLowerCase)
+                    || r.description.toLowerCase().includes(txtLowerCase)
+                    || r.language.toLowerCase().includes(txtLowerCase);
+            });
+        }
+
+        return githubRepositories;
+    }
+
+    private getQueryStringByVisibility(visibility: string) {
         const paramsString: string = `affiliation=owner&sort=full_name&visibility=${visibility}`;
         const searchParams: URLSearchParams = new URLSearchParams(paramsString);
         return `${this.url}/repos?${searchParams}`;
     }
-}
 
-export default RepositoryService;
+    private getPaginationQueryString(page: Number, pageSize: Number, visibility: Visibility) {
+        const paramsString: string =
+            `per_page=${pageSize}&page=${page}&affiliation=owner&sort=full_name&visibility=${visibility}`;
+        const searchParams: URLSearchParams = new URLSearchParams(paramsString);
+        return `${this.url}/repos?${searchParams}`;
+    }
+}
