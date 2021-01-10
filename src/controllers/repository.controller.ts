@@ -1,12 +1,11 @@
 import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status-codes';
-import IControllerBase from './IControllerBase.interface';
+import { IBaseController } from './IBaseController.interface';
 import Repository from '../models/repository.model';
-import RepositoryService from '../services/repository.service';
-// import cache from '../utils/cache';
+import { RepositoryService, IRepositorySearchRequest, Visibility } from '../services/repository.service';
 
-class RepositoryController implements IControllerBase {
+class RepositoryController implements IBaseController {
     public path: string = '/repositories';
 
     public router: Router = express.Router();
@@ -19,15 +18,15 @@ class RepositoryController implements IControllerBase {
     }
 
     public initRoutes() {
-        this.router.get('/repositories/public', this.getPublicRepos);
-        this.router.get('/repositories/trending', this.getTrendingRepos);
+        this.router.get(`${this.path}/public`, this.getPublicRepos);
+        this.router.get(`${this.path}/trending`, this.getTrendingRepos);
+        this.router.post(`${this.path}/search`, this.searchPublicRepos);
     }
 
     getPublicRepos = async (req: Request, res: Response) => {
         try {
-            const privateRepos: Array<Repository> = await this.service.getPublicRepositories();
-            // cache.set(req.originalUrl, privateRepos); // set redis cache
-            return res.status(HttpStatus.OK).json(privateRepos);
+            const publicRepos: Array<Repository> = await this.service.getPublicRepositories();
+            return res.status(HttpStatus.OK).json(publicRepos);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
                 error: error.message,
@@ -38,8 +37,24 @@ class RepositoryController implements IControllerBase {
     getTrendingRepos = async (req: Request, res: Response) => {
         try {
             const trendingRepos: Array<Repository> = await this.service.getTrendingRepositories();
-            // cache.set(req.originalUrl, trendingRepos); // set redis cache
             return res.status(HttpStatus.OK).json(trendingRepos);
+        } catch (error) {
+            return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: error.message,
+            });
+        }
+    }
+
+    searchPublicRepos = async (req: Request, res: Response) => {
+        try {
+            const searchReq: IRepositorySearchRequest = {
+                text: String(req.query.text),
+                page: Number(req.query.pageNumber) || 1,
+                pageSize: Number(req.query.pageSize) || 10,
+                visibility: Visibility.Public,
+            };
+            const publicRepos: Array<Repository> = await this.service.searchPublicRepositories(searchReq);
+            return res.status(HttpStatus.OK).json(publicRepos);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
                 error: error.message,
