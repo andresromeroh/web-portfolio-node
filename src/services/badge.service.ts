@@ -1,13 +1,10 @@
 import fetch, { Response } from 'node-fetch';
-import { config } from 'dotenv';
 import cheerio from 'cheerio';
 import Badge from '../models/badge.model';
-
-config();
+import { BADGE_ELEMENT } from '../config/constants';
 
 const PROFILE_URL: string = process.env.ACCLAIM_PROFILE_URL;
 const BADGE_URL: string = process.env.ACCLAIM_BADGE_URL;
-const BADGE_ELEMENT: string = '.cr-public-earned-badge-grid-item';
 
 class BadgeService {
     protected $: any;

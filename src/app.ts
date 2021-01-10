@@ -24,7 +24,7 @@ class App {
     }
 
     private middlewares(middleWares: Array<any>) {
-        this.app.use(express.json()); // equals to bodyParser.json()
+        this.app.use(express.json());
         middleWares.forEach((middleWare) => {
             this.app.use(middleWare);
         });
@@ -39,11 +39,7 @@ class App {
     private home() {
         this.app.get('/', (req: Request, res: Response) => res.json({
             name: 'andresromero-dev',
-            base: '/api/v1',
-            endpoints: [
-                '/repositories',
-                '/badges',
-            ],
+            endpoints: ['/repositories', '/badges'],
         }));
     }
 

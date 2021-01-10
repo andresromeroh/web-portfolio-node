@@ -1,12 +1,12 @@
 import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status-codes';
-import IControllerBase from './IControllerBase.interface';
+import { IBaseController } from './IBaseController.interface';
 import Email from '../models/email.model';
 import EmailService from '../services/email.service';
 import { RECEIVER_NAME } from '../config/constants';
 
-class EmailController implements IControllerBase {
+class EmailController implements IBaseController {
     public path: string = '/email';
 
     public router: Router = express.Router();
@@ -19,7 +19,7 @@ class EmailController implements IControllerBase {
     }
 
     public initRoutes() {
-        this.router.post('/email/send', this.sendEmail);
+        this.router.post(`${this.path}/send`, this.sendEmail);
     }
 
     sendEmail = async (req: Request, res: Response) => {

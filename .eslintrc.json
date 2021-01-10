@@ -19,6 +19,10 @@
             "error",
             4
         ],
+        "max-len": [
+            "error",
+            120
+        ],
         "linebreak-style": "off",
         "no-unused-vars": "off",
         "import/no-unresolved": "off",
@@ -26,9 +30,7 @@
         "import/extensions": "off",
         "no-return-assign": "off",
         "no-underscore-dangle": "off",
-        "max-len": [
-            "error",
-            120
-        ]
+        "operator-linebreak": "off",
+        "no-extra-semi": "off",
     }
 }

@@ -1,7 +1,4 @@
 import { Headers } from 'node-fetch';
-import { config } from 'dotenv';
-
-config();
 
 class BaseService {
     protected url: string;
