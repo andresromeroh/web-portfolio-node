@@ -4,7 +4,6 @@ import HttpStatus from 'http-status-codes';
 import { IBaseController } from './IBaseController.interface';
 import Email from '../models/email.model';
 import EmailService from '../services/email.service';
-import { RECEIVER_NAME } from '../config/constants';
 
 class EmailController implements IBaseController {
     public path: string = '/email';
@@ -37,7 +36,7 @@ class EmailController implements IBaseController {
                     email: sender,
                 },
                 to: {
-                    name: RECEIVER_NAME,
+                    name: 'ANDRESROMERO.DEV',
                     email: receiver,
                 },
                 templateId: template,

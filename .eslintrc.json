@@ -28,9 +28,12 @@
         "import/no-unresolved": "off",
         "no-console": "off",
         "import/extensions": "off",
+        "import/first": "off",
+        "no-await-in-loop": "off",
         "no-return-assign": "off",
         "camelcase": "off",
         "no-underscore-dangle": "off",
+        "no-restricted-syntax": "off",
         "operator-linebreak": "off",
         "no-extra-semi": "off"
     }

@@ -23,7 +23,7 @@ class EmailController implements IBaseController {
 
     getAllBadges = async (req: Request, res: Response) => {
         try {
-            const badges: Array<Badge> = await this.service.getAllBadges();
+            const badges: Array<Badge> = await this.service.getAllNonExpiredBadges();
             return res
                 .status(HttpStatus.OK)
                 .json(badges)
