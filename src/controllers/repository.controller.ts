@@ -59,11 +59,18 @@ class RepositoryController implements IBaseController {
                 pageSize: Number(req.query.pageSize) || 10,
                 visibility: Visibility.Public,
             };
+            const publicReposQty = (await this.service.getPublicRepositories()).length;
             const publicRepos: Array<Repository> = await this.service.searchPublicRepositories(searchReq);
+            const totalPages: Number = Math.ceil(Number(publicReposQty) / Number(req.query.pageSize));
+            const paginationResponse: any = {
+                repositories: publicRepos,
+                page: searchReq.page,
+                pages: totalPages,
+            };
             return res
                 .status(HttpStatus.OK)
-                .json(publicRepos)
-                .locals.cache(publicRepos);
+                .json(paginationResponse)
+                .locals.cache(paginationResponse);
         } catch (error) {
             return res.status(error.code || HttpStatus.INTERNAL_SERVER_ERROR).json({
                 error: error.message,

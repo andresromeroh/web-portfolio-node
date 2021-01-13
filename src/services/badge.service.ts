@@ -12,7 +12,7 @@ class BadgeService {
         this.$ = null;
     }
 
-    private async getAllBadges(): Promise<Array<Badge>> {
+    public async getAllBadges(): Promise<Array<Badge>> {
         const response: Response = await fetch(PROFILE_URL);
         const html: string = await response.text();
         const badges: Array<Badge> = [];

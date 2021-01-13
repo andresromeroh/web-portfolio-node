@@ -1,5 +1,4 @@
 import express, { Application, Request, Response } from 'express';
-
 import figlet from 'figlet';
 import chalk from 'chalk';
 
