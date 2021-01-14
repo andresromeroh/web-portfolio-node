@@ -14,10 +14,15 @@ docker build -t andresromeroh/web-portfolio-backend .
 
 echo 'Creating new container...'
 docker run \
--e PORT='5000' \
--e GITHUB_ACCESS_TOKEN='4960ee26f77ddeba995301fbb159ba7ca5c0e3e7' \
--e GITHUB_API_URL='https://api.github.com/users/ANDRESROMEROH' \
---name web-portfolio-backend -p 5000:5000 -d andresromeroh/web-portfolio-backend
+-e PORT='PORT' \
+-e GITHUB_ACCESS_TOKEN='TOKEN' \
+-e GITHUB_API_URL='URL' \
+-e SENDGRID_AUTH_TOKEN='PORT' \
+-e REDIS_HOST='HOST' \
+-e REDIS_PORT='PORT' \
+-e REDIS_PASSWORD='PASSWORD' \
+-e ACCLAIM_PROFILE_URL='URL' \
+-e ACCLAIM_BADGE_URL='URL' \
+--name web-portfolio-backend -p PORT:DOCKER_PORT -d andresromeroh/web-portfolio-backend
 
-echo 'Done!'
-echo 'http://192.168.1.205:5000/api/v1/health'
+echo 'Application has been deployed!'
