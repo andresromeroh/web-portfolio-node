@@ -45,7 +45,7 @@ class EmailController implements IBaseController {
 
             const email = new Email(emailFields);
 
-            if (!email || email instanceof Email) {
+            if (email && email instanceof Email) {
                 const emailResponse = await this.service.sendEmail(email);
                 return res.status(HttpStatus.OK).json(emailResponse);
             }

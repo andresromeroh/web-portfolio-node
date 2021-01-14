@@ -22,8 +22,8 @@ export class RepositoryService extends BaseService {
         this.addHeader('Authorization', `token ${TOKEN}`);
     }
 
-    public async getAllRepositories(): Promise<Array<Repository>> {
-        let githubRepositories: Array<Repository> = null;
+    public async getAllRepositories(): Promise<Repository[]> {
+        let githubRepositories: Repository[] = null;
         const response: Response = await fetch(`${this.url}/repos`, { headers: this.headers });
 
         if (response) {
@@ -34,8 +34,8 @@ export class RepositoryService extends BaseService {
         return githubRepositories;
     }
 
-    public async getPublicRepositories(): Promise<Array<Repository>> {
-        let githubRepositories: Array<Repository> = null;
+    public async getPublicRepositories(): Promise<Repository[]> {
+        let githubRepositories: Repository[] = null;
         const query = this.getQueryStringByVisibility(Visibility.Public);
         const response: Response = await fetch(query, { headers: this.headers });
 
@@ -47,8 +47,8 @@ export class RepositoryService extends BaseService {
         return githubRepositories;
     }
 
-    public async getPrivateRepositories(): Promise<Array<Repository>> {
-        let githubRepositories: Array<Repository> = null;
+    public async getPrivateRepositories(): Promise<Repository[]> {
+        let githubRepositories: Repository[] = null;
         const query = this.getQueryStringByVisibility(Visibility.Private);
         const response: Response = await fetch(query, { headers: this.headers });
 
@@ -60,8 +60,8 @@ export class RepositoryService extends BaseService {
         return githubRepositories;
     }
 
-    public async getTrendingRepositories(): Promise<Array<Repository>> {
-        let githubRepositories: Array<Repository> = null;
+    public async getTrendingRepositories(): Promise<Repository[]> {
+        let githubRepositories: Repository[] = null;
         const query = this.getQueryStringByVisibility(Visibility.Public);
         const response: Response = await fetch(query, { headers: this.headers });
 
@@ -73,8 +73,8 @@ export class RepositoryService extends BaseService {
         return githubRepositories?.filter((r) => r.stars > 0 || r.forks > 0 || r.watchers > 0);
     }
 
-    public async searchPublicRepositories(searchReq: IRepositorySearchRequest): Promise<Array<Repository>> {
-        let githubRepositories: Array<Repository> = null;
+    public async searchPublicRepositories(searchReq: IRepositorySearchRequest): Promise<Repository[]> {
+        let githubRepositories: Repository[] = null;
         const {
             text, page, pageSize, visibility,
         } = searchReq;
@@ -97,6 +97,11 @@ export class RepositoryService extends BaseService {
         }
 
         return githubRepositories;
+    }
+
+    public async getPublicRepositoriesCount(): Promise<Number> {
+        const githubRepositories: Repository[] = await this.getPublicRepositories();
+        return githubRepositories.length;
     }
 
     private getQueryStringByVisibility(visibility: string) {

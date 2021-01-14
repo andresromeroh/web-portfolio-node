@@ -38,7 +38,7 @@ class App {
     private home() {
         this.app.get('/', (req: Request, res: Response) => res.json({
             name: 'andresromero-dev',
-            endpoints: ['/repositories', '/badges'],
+            endpoints: ['/repositories', '/badges', '/email'],
         }));
     }
 
@@ -57,7 +57,7 @@ class App {
 
     public listen() {
         this.app.listen(this.port, async () => {
-            figlet('Express JS', (err, data) => {
+            figlet('Express', (err, data) => {
                 console.log(chalk.greenBright(data));
                 console.log(chalk.blueBright(`App listening on http://localhost:${this.port}`));
             });

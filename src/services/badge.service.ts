@@ -12,10 +12,10 @@ class BadgeService {
         this.$ = null;
     }
 
-    public async getAllBadges(): Promise<Array<Badge>> {
+    public async getAllBadges(): Promise<Badge[]> {
         const response: Response = await fetch(PROFILE_URL);
         const html: string = await response.text();
-        const badges: Array<Badge> = [];
+        const badges: Badge[] = [];
 
         this.$ = cheerio.load(html);
 
@@ -35,9 +35,9 @@ class BadgeService {
         return badges;
     }
 
-    public async getAllNonExpiredBadges(): Promise<Array<Badge>> {
-        const badges: Array<Badge> = await this.getAllBadges();
-        const nonExpired: Array<Badge> = [];
+    public async getAllNonExpiredBadges(): Promise<Badge[]> {
+        const badges: Badge[] = await this.getAllBadges();
+        const nonExpired: Badge[] = [];
         for (const badge of badges) {
             const informationReponse: Response = await fetch(badge.information);
             const informationHtml: string = await informationReponse.text();

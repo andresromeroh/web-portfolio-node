@@ -25,7 +25,7 @@ class RepositoryController implements IBaseController {
 
     getPublicRepos = async (req: Request, res: Response) => {
         try {
-            const publicRepos: Array<Repository> = await this.service.getPublicRepositories();
+            const publicRepos: Repository[] = await this.service.getPublicRepositories();
             return res
                 .status(HttpStatus.OK)
                 .json(publicRepos)
@@ -39,7 +39,7 @@ class RepositoryController implements IBaseController {
 
     getTrendingRepos = async (req: Request, res: Response) => {
         try {
-            const trendingRepos: Array<Repository> = await this.service.getTrendingRepositories();
+            const trendingRepos: Repository[] = await this.service.getTrendingRepositories();
             return res
                 .status(HttpStatus.OK)
                 .json(trendingRepos)
@@ -53,20 +53,17 @@ class RepositoryController implements IBaseController {
 
     searchPublicRepos = async (req: Request, res: Response) => {
         try {
+            const { text, page, pageSize } = req.query;
             const searchReq: IRepositorySearchRequest = {
-                text: String(req.query.text),
-                page: Number(req.query.pageNumber) || 1,
-                pageSize: Number(req.query.pageSize) || 10,
+                text: String(text),
+                page: Number(page) || 1,
+                pageSize: Number(pageSize) || 10,
                 visibility: Visibility.Public,
             };
-            const publicReposQty = (await this.service.getPublicRepositories()).length;
-            const publicRepos: Array<Repository> = await this.service.searchPublicRepositories(searchReq);
-            const totalPages: Number = Math.ceil(Number(publicReposQty) / Number(req.query.pageSize));
-            const paginationResponse: any = {
-                repositories: publicRepos,
-                page: searchReq.page,
-                pages: totalPages,
-            };
+            const count: Number = await this.service.getPublicRepositoriesCount();
+            const totalPages: Number = Math.ceil(Number(count) / Number(pageSize));
+            const repositories: Repository[] = await this.service.searchPublicRepositories(searchReq);
+            const paginationResponse: any = { repositories, page, pages: totalPages };
             return res
                 .status(HttpStatus.OK)
                 .json(paginationResponse)
