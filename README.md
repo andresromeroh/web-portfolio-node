@@ -25,7 +25,7 @@ heroku create
 git push heroku master
 ```
 
-##.ENV Variables
+## ENV Variables
 ```shell
 GITHUB_API_URL=https://api.github.com/users/USERNAME
 SENDGRID_RECEIVER_ADDRESS=receiver@gmail.com
