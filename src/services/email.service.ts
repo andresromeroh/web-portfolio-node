@@ -4,15 +4,15 @@ import Email from '../models/email.model';
 const TOKEN: string = process.env.SENDGRID_AUTH_TOKEN;
 
 class EmailService {
-    mailService: MailService;
+    protected mail: MailService;
 
     constructor() {
-        this.mailService = new MailService();
-        this.mailService.setApiKey(TOKEN);
+        this.mail = new MailService();
+        this.mail.setApiKey(TOKEN);
     }
 
     public async sendEmail(email: Email) {
-        const response = await this.mailService.send(email);
+        const response = await this.mail.send(email);
         return response;
     }
 }

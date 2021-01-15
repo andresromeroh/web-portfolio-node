@@ -7,9 +7,7 @@ import EmailService from '../services/email.service';
 
 class EmailController implements IBaseController {
     public path: string = '/email';
-
     public router: Router = express.Router();
-
     public service: EmailService;
 
     constructor() {

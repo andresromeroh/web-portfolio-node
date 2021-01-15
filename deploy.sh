@@ -23,6 +23,7 @@ docker run \
 -e REDIS_PASSWORD='PASSWORD' \
 -e ACCLAIM_PROFILE_URL='URL' \
 -e ACCLAIM_BADGE_URL='URL' \
+-e CORS_WITHELIST='ITEM1,ITEM2' \
 --name web-portfolio-backend -p PORT:DOCKER_PORT -d andresromeroh/web-portfolio-backend
 
 echo 'Application has been deployed!'

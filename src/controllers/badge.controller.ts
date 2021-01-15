@@ -7,9 +7,7 @@ import Badge from '../models/badge.model';
 
 class EmailController implements IBaseController {
     public path: string = '/badges';
-
     public router: Router = express.Router();
-
     public service: BadgeService;
 
     constructor() {

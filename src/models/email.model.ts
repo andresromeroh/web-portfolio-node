@@ -3,17 +3,12 @@ import { EmailData } from '@sendgrid/helpers/classes/email-address';
 import { IBaseModel } from './IBaseModel.interface';
 
 class Email implements IBaseModel {
-    id: string;
-
-    to: EmailData;
-
-    from: EmailData;
-
-    subject: string;
-
-    templateId: string;
-
-    dynamicTemplateData?: { [key: string]: any };
+    public id: string;
+    public to: EmailData;
+    public from: EmailData;
+    public subject: string;
+    public templateId: string;
+    public dynamicTemplateData?: { [key: string]: any };
 
     constructor(email: {
         to: EmailData,
