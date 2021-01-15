@@ -33,5 +33,4 @@ SENDGRID_SENDER_ADDRESS=sender@gmail.com
 ACCLAIM_BADGE_URL=https://www.youracclaim.com/badges
 CORS_WITHELIST=https://domain-1.com,https:/domain-2.com
 ```
-
-Tokens, URLs and APIs can be found following the respective [GitHub](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token), [Sendgrid](https://sendgrid.com/docs/ui/account-and-settings/api-keys/) and [Acclaim](https://support.youracclaim.com/hc/en-us/articles/360039852511-How-do-I-share-my-Acclaim-Profile-) guides.
+Other URLs, Tokens and API keys can be found following the respective [GitHub](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token), [Sendgrid](https://sendgrid.com/docs/ui/account-and-settings/api-keys/) and [Acclaim](https://support.youracclaim.com/hc/en-us/articles/360039852511-How-do-I-share-my-Acclaim-Profile-) guides.
