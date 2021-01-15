@@ -13,7 +13,7 @@ This is a NodeJS Backend ready application that you can use to serve your web po
 * **E-mail Sending:** Send custom emails using templates by connecting the application to the [SendGrid](https://sendgrid.com/) API.
 
 ## Docker Deployment
-The project can be deployed using Docker, I did so by using a Raspberry PI with [Ubuntu](https://ubuntu.com/download/raspberry-pi) then installing and deploying to docker is as easy as:
+The project can be deployed using Docker, I did so by using a Raspberry PI with [Ubuntu](https://ubuntu.com/download/raspberry-pi) then installing and deploying to docker is easy as:
 ```shell
 curl -sSL https://get.docker.com | sh && ./deploy.sh
 ```
