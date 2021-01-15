@@ -2,35 +2,23 @@ import { v4 as uuidv4 } from 'uuid';
 import { IBaseModel } from './IBaseModel.interface';
 
 class Repository implements IBaseModel {
-    id: string;
-
-    githubId: number;
-
-    name: string;
-
-    fullName: string;
-
-    description: string;
-
-    private: boolean;
-
-    htmlUrl: string;
-
-    language: string;
-
-    stars: number;
-
-    forks: number;
-
-    watchers: number;
-
-    createdAt: Date;
-
-    updatedAt: Date;
+    public id: string;
+    public githubId: number;
+    public name: string;
+    public fullName: string;
+    public description: string;
+    public private: boolean;
+    public htmlUrl: string;
+    public language: string;
+    public stars: number;
+    public forks: number;
+    public watchers: number;
+    public createdAt: Date;
+    public updatedAt: Date;
 
     constructor(repository: {
-        id: number, name: string, full_name: string, description: string, private: boolean,
-        html_url: string, language: string, stargazers_count: number,
+        id: number, name: string, full_name: string, description: string,
+        private: boolean, html_url: string, language: string, stargazers_count: number,
         forks_count: number, watchers_count: number, created_at: Date, updated_at: Date
     }) {
         this.id = uuidv4();

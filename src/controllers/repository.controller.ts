@@ -7,9 +7,7 @@ import { RepositoryService, IRepositorySearchRequest, Visibility } from '../serv
 
 class RepositoryController implements IBaseController {
     public path: string = '/repositories';
-
     public router: Router = express.Router();
-
     public service: RepositoryService;
 
     constructor() {

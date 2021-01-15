@@ -1,12 +1,8 @@
-import dotenv from 'dotenv';
-import cors from 'cors';
 import App from './app';
-
-dotenv.config();
-
 import rateLimitMiddleware from './middleware/rateLimit';
 import loggerMiddleware from './middleware/logger';
 import cacheMiddleware from './middleware/cache';
+import crossOriginMiddleware from './middleware/crossOrigin';
 import RepositoryController from './controllers/repository.controller';
 import EmailController from './controllers/email.controller';
 import BadgeController from './controllers/badge.controller';
@@ -19,7 +15,7 @@ const app = new App({
         new BadgeController(),
     ],
     middleWares: [
-        cors(),
+        crossOriginMiddleware,
         rateLimitMiddleware,
         loggerMiddleware,
         cacheMiddleware,

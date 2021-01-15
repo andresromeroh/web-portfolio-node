@@ -1,13 +1,10 @@
 import { IBaseModel } from './IBaseModel.interface';
 
 class Badge implements IBaseModel {
-    id: string;
-
-    title: string;
-
-    image: string;
-
-    information: string;
+    public id: string;
+    public title: string;
+    public image: string;
+    public information: string;
 
     constructor(badge: { id: string, title: string, image: string, information: string }) {
         this.id = badge.id;
