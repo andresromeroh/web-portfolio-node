@@ -4,7 +4,8 @@ const whitelist = process.env.CORS_WITHELIST.split(',');
 
 const corsOptions = {
     origin: (origin: any, callback: any) => {
-        if (whitelist.indexOf(origin) !== -1) {
+        if (whitelist.indexOf(origin) !== -1
+            || process.env.NODE_ENV === 'development') {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));

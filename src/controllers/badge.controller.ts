@@ -17,7 +17,7 @@ class EmailController implements IBaseController {
 
     public initRoutes() {
         this.router.get(`${this.path}/`, this.getAllBadges);
-        this.router.get(`${this.path}/non-expired`, this.getAllBadges);
+        this.router.get(`${this.path}/non-expired`, this.getAllNonExpiredBadges);
     }
 
     getAllBadges = async (req: Request, res: Response) => {
