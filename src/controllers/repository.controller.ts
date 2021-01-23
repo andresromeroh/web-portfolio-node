@@ -61,7 +61,7 @@ class RepositoryController implements IBaseController {
             const count: Number = await this.service.getPublicRepositoriesCount();
             const totalPages: Number = Math.ceil(Number(count) / Number(pageSize));
             const repositories: Repository[] = await this.service.searchPublicRepositories(searchReq);
-            const paginationResponse: any = { repositories, page, pages: totalPages };
+            const paginationResponse: any = { repositories, page: Number(page), pages: totalPages };
             return res
                 .status(HttpStatus.OK)
                 .json(paginationResponse)
