@@ -38,7 +38,7 @@ class EmailController implements IBaseController {
                     email: receiver,
                 },
                 templateId: template,
-                dynamicTemplateData: { subject, text },
+                dynamicTemplateData: { from, subject, text },
             };
 
             const email = new Email(emailFields);
