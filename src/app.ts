@@ -19,7 +19,6 @@ class App {
         this.middlewares(options.middleWares);
         this.routes(options.controllers);
 
-        this.home();
         this.assets();
         this.template();
     }
@@ -35,13 +34,6 @@ class App {
         controllers.forEach((controller) => {
             this.app.use('/api/v1', controller.router);
         });
-    }
-
-    private home() {
-        this.app.get('/', (req: Request, res: Response) => res.json({
-            name: 'andresromero-dev',
-            endpoints: ['/repositories', '/badges', '/email'],
-        }));
     }
 
     private health() {
