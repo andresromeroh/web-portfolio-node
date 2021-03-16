@@ -13,11 +13,13 @@ class App {
 
         this.app.set('trust proxy', true);
         this.app.set('strict routing', true);
+
+        this.health();
+
         this.middlewares(options.middleWares);
         this.routes(options.controllers);
 
         this.home();
-        this.health();
         this.assets();
         this.template();
     }
