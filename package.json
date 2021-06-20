@@ -1,6 +1,7 @@
 {
   "name": "web-portfolio-backend",
   "version": "1.0.0",
+  "private": "true",
   "description": "The services for my web portfolio. Written with Node/Typescript.",
   "main": "index.js",
   "scripts": {
