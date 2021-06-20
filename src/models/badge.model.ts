@@ -1,4 +1,4 @@
-import { IBaseModel } from './IBaseModel.interface';
+import { IBaseModel } from './base.model';
 
 class Badge implements IBaseModel {
     public id: string;

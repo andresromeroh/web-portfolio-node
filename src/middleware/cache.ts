@@ -1,17 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
-import Cache from '../utils/cache';
-import Logger from '../utils/logger';
+import HttpStatus from 'http-status-codes';
+import CacheService from '../services/cache.service';
+import Logger from '../utilities/logger';
+
+const getKeyFromRequest = (req: Request) => `${req.connection.remoteAddress}::${req.originalUrl}`;
 
 const cacheMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const key = `${req.connection.remoteAddress}:${req.originalUrl}`;
-    Logger.info(`Redis: Looking for ${key} in cache`);
-    Cache.get(key, (err: Error, data: any) => {
-        if (data) {
-            Logger.info('Redis: Requested data found in cache');
-            res.status(200).json(JSON.parse(data));
+    const key = getKeyFromRequest(req);
+    CacheService.get(key, (err: Error, data: any) => {
+        if (data && !err) {
+            Logger.info(`[Redis]: Requested data ${key} found in cache`);
+            res.status(HttpStatus.OK).json(JSON.parse(data));
         } else {
-            Logger.info(`Redis: Not found, saving ${key} to cache`);
-            res.locals.cache = (content: any) => Cache.set(key, content);
+            Logger.info(`[Redis]: Not found, saving ${key} to cache`);
+            res.locals.cache = (content: any) => CacheService.set(key, content);
             next();
         }
     });

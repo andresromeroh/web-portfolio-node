@@ -1,28 +1,24 @@
 import { RedisClient } from 'redis';
-import Logger from './logger';
+import Logger from '../utilities/logger';
+import ConfigService from './config.service';
 
-const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
-
-class Cache {
-    private static _instance: Cache;
+class CacheService {
+    private static _instance: CacheService;
 
     private client: RedisClient;
+    private configService: ConfigService = new ConfigService();
 
     private constructor() {
-        this.client = new RedisClient({
-            host: REDIS_HOST,
-            port: Number(REDIS_PORT),
-            password: REDIS_PASSWORD,
-        });
+        this.client = new RedisClient(this.configService.getRedisCredentias());
         this.client.on('ready', () => Logger.info('Redis: Connection success!'));
         this.client.on('error', (e) => Logger.error(`Redis: ${JSON.stringify(e)}`));
     }
 
-    public static get Instance() {
+    public static get Instance(): CacheService {
         return this._instance || (this._instance = new this());
     }
 
-    public set(key: string, value: any) { // 30 minutes
+    public set(key: string, value: any): void {
         this.client.setex(key, 1800, JSON.stringify(value));
     }
 
@@ -31,5 +27,5 @@ class Cache {
     }
 }
 
-const singleton = Cache.Instance;
+const singleton: CacheService = CacheService.Instance;
 export default singleton;

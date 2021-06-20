@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status-codes';
-import { IBaseController } from './IBaseController.interface';
+import { IBaseController } from './base.controller';
 import Email from '../models/email.model';
 import EmailService from '../services/email.service';
 
@@ -21,29 +21,8 @@ class EmailController implements IBaseController {
 
     sendEmail = async (req: Request, res: Response) => {
         try {
-            const sender = process.env.SENDGRID_SENDER_ADDRESS;
-            const receiver = process.env.SENDGRID_RECEIVER_ADDRESS;
-            const template = process.env.SENDGRID_TEMPLATE_ID;
-
-            const { subject, from, text } = req.body;
-
-            const emailFields = {
-                subject,
-                from: {
-                    name: from,
-                    email: sender,
-                },
-                to: {
-                    name: 'ANDRESROMERO.DEV',
-                    email: receiver,
-                },
-                templateId: template,
-                dynamicTemplateData: { from, subject, text },
-            };
-
-            const email = new Email(emailFields);
-
-            if (email && email instanceof Email) {
+            const email: Email = this.service.createEmailContent(req.body);
+            if (email != null) {
                 const emailResponse = await this.service.sendEmail(email);
                 return res.status(HttpStatus.OK).json(emailResponse);
             }

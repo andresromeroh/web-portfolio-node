@@ -1,10 +1,11 @@
 import rateLimit from 'express-rate-limit';
 
-const rateLimitMiddleware = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests
-    message: JSON.parse('{ "error": "Too many requests" }'),
+const THIRTY_MIN_MS: number = 150000;
+
+const rateLimitMiddleware: any = rateLimit({
+    max: 100,
     statusCode: 429,
+    windowMs: THIRTY_MIN_MS,
 });
 
 export default rateLimitMiddleware;

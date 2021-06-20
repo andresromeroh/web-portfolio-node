@@ -1,15 +1,15 @@
 import { Headers } from 'node-fetch';
 
-class BaseService {
-    protected url: string;
+class HttpService {
+    protected _url: string;
 
     protected headers: Headers = new Headers({
         Accept: 'application/json',
         'Content-Type': 'application/json',
     });
 
-    constructor(url: string) {
-        this.url = process.env[url];
+    public set url(url: string) {
+        this._url = url;
     }
 
     public addHeader(name: string, value: string) {
@@ -17,4 +17,4 @@ class BaseService {
     }
 }
 
-export default BaseService;
+export default HttpService;

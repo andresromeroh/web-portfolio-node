@@ -1,8 +1,7 @@
 import fetch, { Response } from 'node-fetch';
 import Repository from '../models/repository.model';
-import BaseService from './Base.service';
-
-const TOKEN: string = process.env.GITHUB_ACCESS_TOKEN;
+import HttpService from './http.service';
+import ConfigService from './config.service';
 
 export enum Visibility {
     Public = 'public',
@@ -16,15 +15,18 @@ export interface IRepositorySearchRequest {
     visibility: Visibility;
 }
 
-export class RepositoryService extends BaseService {
+export class RepositoryService extends HttpService {
+    private configService: ConfigService = new ConfigService();
+
     constructor() {
-        super('GITHUB_API_URL');
-        this.addHeader('Authorization', `token ${TOKEN}`);
+        super();
+        this._url = this.configService.getGitHubUrl();
+        this.addHeader('Authorization', this.configService.getGitHubToken());
     }
 
     public async getAllRepositories(): Promise<Repository[]> {
         let githubRepositories: Repository[] = null;
-        const response: Response = await fetch(`${this.url}/repos`, { headers: this.headers });
+        const response: Response = await fetch(`${this._url}/repos`, { headers: this.headers });
 
         if (response) {
             const json = await response.json();
@@ -107,13 +109,13 @@ export class RepositoryService extends BaseService {
     private getQueryStringByVisibility(visibility: string) {
         const paramsString: string = `affiliation=owner&sort=full_name&visibility=${visibility}`;
         const searchParams: URLSearchParams = new URLSearchParams(paramsString);
-        return `${this.url}/repos?${searchParams}`;
+        return `${this._url}/repos?${searchParams}`;
     }
 
     private getPaginationQueryString(page: Number, pageSize: Number, visibility: Visibility) {
         const paramsString: string =
             `per_page=${pageSize}&page=${page}&affiliation=owner&sort=full_name&visibility=${visibility}`;
         const searchParams: URLSearchParams = new URLSearchParams(paramsString);
-        return `${this.url}/repos?${searchParams}`;
+        return `${this._url}/repos?${searchParams}`;
     }
 }

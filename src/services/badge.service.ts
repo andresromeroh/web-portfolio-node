@@ -1,34 +1,34 @@
-import fetch, { Response } from 'node-fetch';
 import cheerio from 'cheerio';
+import fetch, { Response } from 'node-fetch';
 import Badge from '../models/badge.model';
+import ConfigService from './config.service';
 
-const PROFILE_URL: string = process.env.ACCLAIM_PROFILE_URL;
-const BADGE_URL: string = process.env.ACCLAIM_BADGE_URL;
+enum HtmlElement {
+    EarnedBadge = '.cr-public-earned-badge-grid-item',
+    BadgeExpire = '.cr-badge-banner-expires-at-text--expired',
+}
 
 class BadgeService {
-    protected $: any;
-
-    constructor() {
-        this.$ = null;
-    }
+    protected _$: any = null;
+    protected configService: ConfigService = new ConfigService();
 
     public async getAllBadges(): Promise<Badge[]> {
-        const response: Response = await fetch(PROFILE_URL);
-        const html: string = await response.text();
         const badges: Badge[] = [];
 
-        this.$ = cheerio.load(html);
+        const profile = this.configService.getAcclaimProfile();
+        const response: Response = await fetch(profile.url);
 
-        this.$('.cr-public-earned-badge-grid-item').each((i: any, badge: any) => {
+        this._$ = cheerio.load(await response.text());
+
+        this._$(HtmlElement.EarnedBadge).each((i: any, badge: any) => {
             const { title, href } = badge.attribs;
             const id = href.split('/')[2];
-            const image = this.$(badge).find('div img').attr('src');
-            const information = `${BADGE_URL}/${id}`;
+
+            const image = this._$(badge).find('div img').attr('src');
+            const information = `${profile.badges}/${id}`;
+
             badges.push({
-                id,
-                title,
-                image,
-                information,
+                id, title, image, information,
             });
         });
 
@@ -43,7 +43,7 @@ class BadgeService {
             const informationHtml: string = await informationReponse.text();
             const informationUI = cheerio.load(informationHtml);
 
-            const expiredText = informationUI('.cr-badge-banner-expires-at-text--expired').text();
+            const expiredText = informationUI(HtmlElement.BadgeExpire).text();
 
             if (!expiredText.toLowerCase().includes('expired')) {
                 nonExpired.push(badge);

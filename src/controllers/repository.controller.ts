@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status-codes';
-import { IBaseController } from './IBaseController.interface';
+import { IBaseController } from './base.controller';
 import Repository from '../models/repository.model';
 import { RepositoryService, IRepositorySearchRequest, Visibility } from '../services/repository.service';
 

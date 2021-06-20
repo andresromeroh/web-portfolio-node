@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { EmailData } from '@sendgrid/helpers/classes/email-address';
-import { IBaseModel } from './IBaseModel.interface';
+import { IBaseModel } from './base.model';
 
 class Email implements IBaseModel {
     public id: string;
