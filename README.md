@@ -18,13 +18,6 @@ The project can be deployed using Docker, I did so by using a Raspberry PI with 
 curl -sSL https://get.docker.com | sh && ./deploy.sh
 ```
 
-## Heroku Deployment
-If you have the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed, you can use it to deploy as well by running these commands in the root folder:
-```shell
-heroku create
-git push heroku master
-```
-
 ## ENV Variables
 ```shell
 GITHUB_API_URL=https://api.github.com/users/USERNAME
