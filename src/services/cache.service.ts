@@ -1,4 +1,4 @@
-import { createClient } from 'redis';
+import { createClient, RedisClient } from 'redis';
 import Logger from '../utilities/logger';
 import ConfigService from './config.service';
 
