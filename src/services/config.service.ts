@@ -9,7 +9,7 @@ enum RedisCredentials {
     Host = 'REDIS_HOST',
     Port = 'REDIS_PORT',
     Password = 'REDIS_PASSWORD',
-    Url = 'REDISCLOUD_URL',
+    Url = 'REDIS_URL',
 }
 
 enum GitHubCredentials {
