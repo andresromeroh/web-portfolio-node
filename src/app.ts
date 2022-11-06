@@ -32,12 +32,12 @@ class App {
 
     private routes(controllers: Array<any>) {
         controllers.forEach((controller) => {
-            this.app.use('/api/v1', controller.router);
+            this.app.use('/v1', controller.router);
         });
     }
 
     private health() {
-        this.app.get('/api/v1/health', (req: Request, res: Response) => res.json({ status: 'UP' }));
+        this.app.get('/v1/health', (req: Request, res: Response) => res.json({ status: 'UP' }));
     }
 
     private assets() {
