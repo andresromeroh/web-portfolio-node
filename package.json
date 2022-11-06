@@ -5,7 +5,7 @@
   "description": "The services for my web portfolio. Written with Node/Typescript.",
   "main": "index.js",
   "scripts": {
-    "prod": "npm run build && node dist/server.js",
+    "prod": "node dist/server.js",
     "dev": "npm run lint && nodemon -r dotenv/config src/server.ts",
     "build": "tsc",
     "lint": "eslint . --fix  --ext .ts"
