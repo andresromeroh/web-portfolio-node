@@ -1,4 +1,4 @@
-import { RedisClient } from 'redis';
+import { createClient } from 'redis';
 import Logger from '../utilities/logger';
 import ConfigService from './config.service';
 
@@ -9,9 +9,9 @@ class CacheService {
     private configService: ConfigService = new ConfigService();
 
     private constructor() {
-        this.client = new RedisClient(this.configService.getRedisCredentias());
+        this.client = createClient(this.configService.getRedisCredentias());
         this.client.on('ready', () => Logger.info('Redis: Connection success!'));
-        this.client.on('error', (e) => Logger.error(`Redis: ${JSON.stringify(e)}`));
+        this.client.on('error', (error) => Logger.error(`Redis: ${JSON.stringify(error)}`));
     }
 
     public static get Instance(): CacheService {
@@ -28,4 +28,5 @@ class CacheService {
 }
 
 const singleton: CacheService = CacheService.Instance;
+
 export default singleton;
