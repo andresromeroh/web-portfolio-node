@@ -9,6 +9,7 @@ enum RedisCredentials {
     Host = 'REDIS_HOST',
     Port = 'REDIS_PORT',
     Password = 'REDIS_PASSWORD',
+    Url = 'REDISCLOUD_URL',
 }
 
 enum GitHubCredentials {
@@ -27,9 +28,7 @@ class ConfigService {
 
     public getRedisCredentias(): ClientOpts {
         return {
-            host: this.env[RedisCredentials.Host],
-            port: Number(this.env[RedisCredentials.Port]),
-            password: this.env[RedisCredentials.Password],
+            url: this.env[RedisCredentials.Url],
         };
     }
 
